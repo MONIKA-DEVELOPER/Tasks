@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Manage Office</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <style media="screen">
+      #form{
+        display : none;
+      }
+      button{
+        width: 100px;
+      }
+  
+    </style>
+  </head>
+  <body>
+    <button type="button" name="button" onclick= "addNew()" id="btn">Add New Office</button>
+    <form name="add" action="/add" method="post" id="form">
+      <input type="text" name="officeName" value="" placeholder="Office Name">
+      <input type="text" name="seats" value="" placeholder="Number of Seats">
+      <input type="submit" name="submit" value="Add">
+    </form>
+
+    <table>
+      <caption>List of offices</caption>
+      <tr>
+      <th>
+        Id
+      </th>
+        <th>
+          Office Name
+        </th>
+        <th>
+          Number of seats
+        </th>
+        <th colspan ="2">
+          Actions
+        </th>
+      </tr>
+      <% data.forEach(function(office,indx){%>
+        <tr>
+          <td>
+            <%= office.id %>
+          </td>
+          <td>
+          <%=  office.officeName %>
+          </td>
+          <td>
+          <%=    office.seats %>
+          </td>
+          <td>
+            <button type="button" name="edit"><a href="/edit/<%= office.id %>">Edit</a></button>
+          </td>
+          <td>
+            <button type="button" name="delete" onclick="con()"><a href="/delete/<%= office.id %>">Delete</a></button>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+
+    <script type="text/javascript">
+    function con(){
+      var result = confirm("do you want to delete this record?")
+      if(result == true){
+       return true;
+      }
+      else{
+          return false;
+      }
+    }
+
+    function addNew(){
+     document.getElementById('form').style.display = 'block';
+    }
+    </script>
+  </body>
+</html>

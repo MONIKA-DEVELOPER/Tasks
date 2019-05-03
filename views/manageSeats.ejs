@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Manage Seats</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <style media="screen">
+      #addForm{
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Manage Seats</h1>
+    <form class="" action="" method="">
+      Office : <select class="" name="" id="office">
+        <option value="" disable hidden>select</option>
+           <% data.forEach(function(office,ind){ %>
+             <option value="<%= office.officeName %>"><%= office.officeName %></option>
+           <% }) %>
+      </select><br>
+      Seats : <input type="text" name="seats" value="" id="seats"><br>
+      Date : <input type="date" name="" value="" id="date"><br>
+    </form>
+    <div class="" id="add">
+    <form class="" action="https://formspree.io/monikaheer97@gmail.com" method="post" id="addForm">
+      Email : <input type="email" name="email" value="" id="email"><br>
+      Name : <input type="text" name="name" value="" id="name"><br>
+      seat No. : <select class="" name="seat" id= "seatNo">
+        <option value="" disable hidden>select</option>
+        </select>
+        </div>
+  <!--  <button type="button" name="button" onclick="addMore()">Add More</button> -->
+    <input type="submit" name="send" value="send">
+    </form>
+
+
+    <script type="text/javascript">
+    counter = 1;
+    function addMore(){
+     var text = 'Email : <input type="email" name="email" value=""><br>';
+     text += 'Name : <input type="text" name="name" value=""><br>';
+     text += 'seat No. : <input type="text" name="seatNo" value=""><br>';
+     document.getElementById('add').innerHTML += text;
+      }
+
+      document.getElementById('office').onchange = function(){
+      //  var off = this.value;
+        <% data.forEach(function(office,index){ %>
+          console.log('<%= office.officeName %>')
+           if('<%= office.officeName %>' == this.value  ){
+           document.getElementById('seats').value = '<%= office.seats %>';
+       }
+        <% }) %>
+      }
+
+      document.getElementById('date').onchange = function(){
+        document.getElementById('addForm').style.display = 'block';
+        var len = document.getElementById('seats').value;
+        var sel = document.getElementById('seatNo');
+        for(i=1 ; i<= len ; i++ ){
+            var opt = document.createElement('option');
+            opt.appendChild( document.createTextNode(i) );
+            opt.value = i;
+            sel.appendChild(opt);
+          }
+      }
+
+      document.getElementById('email').onchange = function(){
+        <% empData.forEach(function(employee,index){ %>
+          console.log(this.value)
+           if('<%= employee.email %>' == this.value  ){
+           document.getElementById('name').value = '<%= employee.name %>';
+       }
+        <% }) %>
+      }
+    </script>
+  </body>
+</html>
